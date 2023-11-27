@@ -12,5 +12,6 @@ instagram_paket = ReplyKeyboardMarkup(
             KeyboardButton(text="Comments")
         ]
     ],
-    resize_keyboard=True
+    resize_keyboard=True,
+    one_time_keyboard=True
 )
