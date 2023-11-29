@@ -162,7 +162,7 @@ async def followers(message: Message, state: FSMContext):
         link = "https://avatars.mds.yandex.net/i?id=a21ba0b3957dd0573d399a4891039d13207de203-10139706-images-thumbs&n=13"
         await message.answer_photo(link,caption = "Like tanlang",reply_markup=like_button)
         await state.finish()
-
+#
     else:
         await message.answer("Tentak")
 #gi
