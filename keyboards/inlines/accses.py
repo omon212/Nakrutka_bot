@@ -19,3 +19,17 @@ follow_button = InlineKeyboardMarkup(
                 InlineKeyboardButton('Tasdiqlash✅', callback_data='follow_tasdiqlash')
             ]
         ])
+like_button = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='-1000 ❤️', callback_data='like-'),
+            InlineKeyboardButton(text=f'0', callback_data='like_true'),
+            InlineKeyboardButton(text='+1000 ❤️', callback_data='like+'),
+
+        ],
+        [
+            InlineKeyboardButton(text='Tasdiqlash', callback_data='Tasdiqlash_like')
+        ]
+    ],
+    resize_keyboard=True,
+)
