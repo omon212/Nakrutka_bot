@@ -165,6 +165,7 @@ async def followers(message: Message, state: FSMContext):
 
     else:
         await message.answer("Tentak")
+#gi
 @dp.callback_query_handler(text = 'like-')
 async def minus_like(call: types.CallbackQuery, state: FSMContext):
     async def update_snecks_minus_like_button1(chat_id, message_id, new_son):
