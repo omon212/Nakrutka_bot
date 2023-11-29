@@ -24,7 +24,8 @@ like_button = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text='-1000 ❤️', callback_data='like-'),
-            InlineKeyboardButton(text=f'{0}', callback_data='like_true'),
+            InlineKeyboardButton(text=f'0', callback_data='like_true'),
+
             InlineKeyboardButton(text='+1000 ❤️', callback_data='like+'),
 
         ],
