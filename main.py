@@ -265,7 +265,7 @@ async def views(message: Message, state: FSMContext):
     await state.finish()
     await Shogirdchalar.views_state.set()
 
-
+#fgfg
 @dp.message_handler(state=Shogirdchalar.views_state, content_types=types.ContentType.TEXT)
 async def views(message: Message, state: FSMContext):
     url = message.text
