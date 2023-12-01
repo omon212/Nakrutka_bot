@@ -12,9 +12,9 @@ from instagpy import InstaGPy
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
-from keyboards.inlines.accses import true_false, follow_button, like_button
+from keyboards.inlines.accses import true_false, follow_button, like_button, view_button, comment_button
 
-API_TOKEN = '6762535664:AAE2siFE6bDMGFvRqph9MUFmO1qIAWR2rVY'
+API_TOKEN = '6894993476:AAE5itRAWrvyReSl6eRRHhCjrp9h9CNcdmo'
 
 bot = Bot(token=API_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -32,6 +32,8 @@ class Shogirdchalar(StatesGroup):
     Telegram_state = State()
     username_insta_state = State()
     url_like_state = State()
+    views_state = State()
+    comment_state = State()
 
 
 @dp.message_handler(commands='start')
@@ -50,7 +52,7 @@ async def insta_logging(message: Message, state: FSMContext):
     await Shogirdchalar.Instagram_state.set()
 
 
-@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Followers")
+@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Followers👤")
 async def followers(message: Message, state: FSMContext):
     await message.answer("Username Kiriting")
     await state.finish()
@@ -76,6 +78,9 @@ Private : {txt["is_private"]}
 
 
 # -----------------------FOLLOW_________________________________________________________
+
+
+
 @dp.callback_query_handler(text='ha', state=Shogirdchalar.username_insta_state)
 async def followers(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
@@ -145,22 +150,36 @@ async def update_snecks_minus_follow_button1(chat_id, message_id, new_son):
     await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=minus_button)
 
 
+
+
+
 # _____________________________________FOWLLOW_END_____________________________
+
+
+
+
+
+
 #--------------------------------------LIKE-----------------------------------
 
-@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes")
-async def followers(message: Message, state: FSMContext):
+
+
+
+
+
+@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes❤️")
+async def likes(message: Message, state: FSMContext):
     await message.answer("Url kiriting")
     await state.finish()
     await Shogirdchalar.url_like_state.set()
 
 
 @dp.message_handler(state=Shogirdchalar.url_like_state, content_types=types.ContentType.TEXT)
-async def followers(message: Message, state: FSMContext):
+async def likes(message: Message, state: FSMContext):
     url = message.text
     if url.startswith("https://www.instagram.com"):
         link = "https://avatars.mds.yandex.net/i?id=a21ba0b3957dd0573d399a4891039d13207de203-10139706-images-thumbs&n=13"
-        await message.answer_photo(link,caption = "Like tanlang",reply_markup=like_button)
+        await message.answer_photo(link,caption = "Like sonini tanlang",reply_markup=like_button)
         await state.finish()
 #
     else:
@@ -178,7 +197,7 @@ async def minus_like(call: types.CallbackQuery, state: FSMContext):
 
                 ],
                 [
-                    InlineKeyboardButton(text='Tasdiqlash', callback_data='Tasdiqlash_like')
+                    InlineKeyboardButton(text='Tasdiqlash✅', callback_data='like_tasdiqlash')
                 ]
             ],
             resize_keyboard=True,
@@ -199,7 +218,7 @@ async def minus_like(call: types.CallbackQuery, state: FSMContext):
         else:
             await call.answer('Eng kam miqdor 1000 ta')
 @dp.callback_query_handler(text = 'like+')
-async def plus_follow(call: types.CallbackQuery):
+async def plus_like(call: types.CallbackQuery):
     async def update_snecks_minus_like_button1(chat_id, message_id, new_son):
         like_button = InlineKeyboardMarkup(
             inline_keyboard=[
@@ -210,7 +229,7 @@ async def plus_follow(call: types.CallbackQuery):
 
                 ],
                 [
-                    InlineKeyboardButton(text='Tasdiqlash', callback_data='Tasdiqlash_like')
+                    InlineKeyboardButton(text='Tasdiqlash✅', callback_data='like_tasdiqlash')
                 ]
             ],
             resize_keyboard=True,
@@ -226,7 +245,197 @@ async def plus_follow(call: types.CallbackQuery):
     else:
         await call.answer('Eng kam miqdor 1000 ta')
 
+
+
+
 #-------------------------LIKE_end-------------------------------------
+
+
+
+
+#--------------------------VIEWS----------------------------------------
+
+
+
+
+
+@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Views👁️")
+async def views(message: Message, state: FSMContext):
+    await message.answer("Url kiriting")
+    await state.finish()
+    await Shogirdchalar.views_state.set()
+
+
+@dp.message_handler(state=Shogirdchalar.views_state, content_types=types.ContentType.TEXT)
+async def views(message: Message, state: FSMContext):
+    url = message.text
+    if url.startswith("https://www.instagram.com"):
+        link = "https://yt3.googleusercontent.com/VJAWgMbfJ-umoqgiPIh8Zq2R1ZUm2IuGaT75GBY0OHFLrk0nKhR-pt8DrNotRAjk49Qhor0t=s900-c-k-c0x00ffffff-no-rj"
+        await message.answer_photo(link,caption = "Prasmotr sonini tanlang",reply_markup=view_button)
+        await state.finish()
+    else:
+        await message.answer("Tentak")
+
+
+@dp.callback_query_handler(text = 'view-')
+async def minus_view(call: types.CallbackQuery, state: FSMContext):
+    async def update_snecks_minus_view_button1(chat_id, message_id, new_son):
+        view_button = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(text='-1000 👁️', callback_data='view-'),
+                    InlineKeyboardButton(text=f'{son[call.message.chat.id]}', callback_data='view_true'),
+                    InlineKeyboardButton(text='+1000 👁️', callback_data='view+'),
+
+                ],
+                [
+                    InlineKeyboardButton(text='Tasdiqlash✅', callback_data='view_tasdiqlash')
+                ]
+            ],
+            resize_keyboard=True,
+        )
+
+        await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=view_button)
+    global son
+    print(True)
+    if son[call.message.chat.id] <= 0:
+        await call.answer('Eng kam miqdor 1000 ta')
+    else:
+
+        son[call.message.chat.id] -= 1000
+        fake_son = son[call.message.chat.id]
+        print(fake_son)
+        if fake_son >= 0:
+            await update_snecks_minus_view_button1(call.message.chat.id, call.message.message_id, fake_son)
+        else:
+            await call.answer('Eng kam miqdor 1000 ta')
+
+
+@dp.callback_query_handler(text = 'view+')
+async def plus_view(call: types.CallbackQuery):
+    async def update_snecks_minus_view_button1(chat_id, message_id, new_son):
+        view_button = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(text='-1000 👁️', callback_data='view-'),
+                    InlineKeyboardButton(text=f'{son[call.message.chat.id]}', callback_data='view_true'),
+                    InlineKeyboardButton(text='+1000 👁️', callback_data='view+'),
+
+                ],
+                [
+                    InlineKeyboardButton(text='Tasdiqlash✅', callback_data='view_tasdiqlash')
+                ]
+            ],
+            resize_keyboard=True,
+        )
+
+        await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=view_button)
+    global son
+    son[call.message.chat.id] += 1000
+    fake_son = son[call.message.chat.id]
+    print(fake_son)
+    if fake_son >= 0:
+        await update_snecks_minus_view_button1(call.message.chat.id, call.message.message_id, fake_son)
+    else:
+        await call.answer('Eng kam miqdor 1000 ta')
+
+
+
+
+
+
+#------------------------------------------VIEW_end-------------------------------------------------------
+
+
+
+
+#------------------------------------------COMMENT----------------------------------------------------------
+
+
+
+
+
+
+@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Comments💬")
+async def comments(message: Message, state: FSMContext):
+    await message.answer("Url kiriting")
+    await state.finish()
+    await Shogirdchalar.comment_state.set()
+
+
+@dp.message_handler(state=Shogirdchalar.comment_state, content_types=types.ContentType.TEXT)
+async def comments(message: Message, state: FSMContext):
+    url = message.text
+    if url.startswith("https://www.instagram.com"):
+        link = "https://lh3.googleusercontent.com/eZ95Z-mlPgDczM1CgYwafA6IYAmbD1FPhr8BXOBxEEzB7h5nfPWOeyKqCjABSpMuLVyHnLxRHd_NJQfrUvOTgnuBbalMOYzY88J96uQ7GJspdK1f7od-VCQHe2bw3-Kgi4OvkaY"
+        await message.answer_photo(link,caption = "Kamentariya sonini tanlang",reply_markup=comment_button)
+        await state.finish()
+    else:
+        await message.answer("Mol faxim")
+
+
+@dp.callback_query_handler(text = 'comment-')
+async def minus_comment(call: types.CallbackQuery, state: FSMContext):
+    async def update_snecks_minus_comment_button1(chat_id, message_id, new_son):
+        comment_button = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(text='-1000 💬', callback_data='comment-'),
+                    InlineKeyboardButton(text=f'{son[call.message.chat.id]}', callback_data='comment_true'),
+                    InlineKeyboardButton(text='+1000 💬', callback_data='comment+'),
+
+                ],
+                [
+                    InlineKeyboardButton(text='Tasdiqlash✅', callback_data='comment_tasdiqlash')
+                ]
+            ],
+            resize_keyboard=True,
+        )
+
+        await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=comment_button)
+    global son
+    print(True)
+    if son[call.message.chat.id] <= 0:
+        await call.answer('Eng kam miqdor 1000 ta')
+    else:
+
+        son[call.message.chat.id] -= 1000
+        fake_son = son[call.message.chat.id]
+        print(fake_son)
+        if fake_son >= 0:
+            await update_snecks_minus_comment_button1(call.message.chat.id, call.message.message_id, fake_son)
+        else:
+            await call.answer('Eng kam miqdor 1000 ta')
+
+
+@dp.callback_query_handler(text = 'comment+')
+async def plus_comment(call: types.CallbackQuery):
+    async def update_snecks_minus_comment_button1(chat_id, message_id, new_son):
+        comment_button = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [
+                    InlineKeyboardButton(text='-1000 💬', callback_data='comment-'),
+                    InlineKeyboardButton(text=f'{son[call.message.chat.id]}', callback_data='comment_true'),
+                    InlineKeyboardButton(text='+1000 💬', callback_data='comment+'),
+
+                ],
+                [
+                    InlineKeyboardButton(text='Tasdiqlash✅', callback_data='comment_tasdiqlash')
+                ]
+            ],
+            resize_keyboard=True,
+        )
+
+        await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=comment_button)
+    global son
+    son[call.message.chat.id] += 1000
+    fake_son = son[call.message.chat.id]
+    print(fake_son)
+    if fake_son >= 0:
+        await update_snecks_minus_comment_button1(call.message.chat.id, call.message.message_id, fake_son)
+    else:
+        await call.answer('Eng kam miqdor 1000 ta')
+
 
 
 
