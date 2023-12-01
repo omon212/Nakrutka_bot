@@ -30,7 +30,41 @@ like_button = InlineKeyboardMarkup(
 
         ],
         [
-            InlineKeyboardButton(text='Tasdiqlash', callback_data='Tasdiqlash_like')
+            InlineKeyboardButton(text='Tasdiqlash✅', callback_data='like_tasdiqlash')
+        ]
+    ],
+    resize_keyboard=True,
+)
+
+
+view_button = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='-1000 👁️', callback_data='view-'),
+            InlineKeyboardButton(text=f'0', callback_data='view_true'),
+
+            InlineKeyboardButton(text='+1000 👁️', callback_data='view+'),
+
+        ],
+        [
+            InlineKeyboardButton(text='Tasdiqlash✅', callback_data='view_tasdiqlash')
+        ]
+    ],
+    resize_keyboard=True,
+)
+
+
+comment_button = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='-1000 💬', callback_data='comment-'),
+            InlineKeyboardButton(text=f'0', callback_data='comment_true'),
+
+            InlineKeyboardButton(text='+1000 💬', callback_data='comment+'),
+
+        ],
+        [
+            InlineKeyboardButton(text='Tasdiqlash✅', callback_data='comment_tasdiqlash')
         ]
     ],
     resize_keyboard=True,

@@ -7,8 +7,8 @@ socials = ReplyKeyboardMarkup(
             KeyboardButton(text="YouTube")
         ],
         [
-            KeyboardButton("TikTok"),
-            KeyboardButton("Telegram")
+            KeyboardButton(text="TikTok"),
+            KeyboardButton(text="Telegram")
         ]
 
     ],
