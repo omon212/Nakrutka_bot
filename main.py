@@ -22,7 +22,9 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 son = {
     "user_id": 0
 }
-
+user_instagram = {
+    "user_id_telegram": "user_name_instagram"
+}
 
 class Shogirdchalar(StatesGroup):
     Socials_button_state = State()
@@ -44,7 +46,7 @@ async def for_start(message: types.Message, state: FSMContext):
     await Shogirdchalar.Socials_button_state.set()
 
 
-@dp.message_handler(text="Instagram", state=Shogirdchalar.Socials_button_state)
+@dp.message_handler(text="Instagram📱", state=Shogirdchalar.Socials_button_state)
 async def insta_logging(message: Message, state: FSMContext):
     await message.answer("Siz Instagram Bo`limini Tanladingiz\n\nTariflardan birini tanlang",
                          reply_markup=instagram_paket)
@@ -65,6 +67,7 @@ async def username(message: Message, state: FSMContext):
     insta = InstaGPy(use_mutiple_account=False, session_ids=None, min_requests=None, max_requests=None)
     txt = insta.get_user_basic_details(f'{user}')
     print(txt)
+    user_instagram[f'{message.from_user.id}'] = txt["username"]
     await message.answer(f"""
 Username: {txt["username"]}
 
@@ -149,7 +152,11 @@ async def update_snecks_minus_follow_button1(chat_id, message_id, new_son):
 
     await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=minus_button)
 
-
+@dp.callback_query_handler(text = 'follow_tasdiqlash')
+async def tasdiq_followers(call: types.CallbackQuery):
+    instagram_nomi = user_instagram[f"{call.message.chat.id}"]
+    await bot.send_message(5172746353,f"Yangi Zakaz keldi\nBuyurtmachi: {call.from_user.username}\nTanlov Turi: Obunachi\nSoni: {son[call.message.chat.id]}\nInstagram: https://instagram.com/{instagram_nomi}")
+    await call.message.answer("To`lov turini tanlang!")
 
 
 
