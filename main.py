@@ -14,7 +14,7 @@ from instagpy import InstaGPy
 logging.basicConfig(level=logging.INFO)
 from keyboards.inlines.accses import true_false, follow_button, like_button, view_button, comment_button
 
-API_TOKEN = '6894993476:AAE5itRAWrvyReSl6eRRHhCjrp9h9CNcdmo'
+API_TOKEN = '6643960998:AAEHWX4zl_sYrR7uCoU_oHwVtVnQf8iLUCc'
 
 bot = Bot(token=API_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -25,6 +25,7 @@ son = {
 user_instagram = {
     "user_id_telegram": "user_name_instagram"
 }
+
 
 class Shogirdchalar(StatesGroup):
     Socials_button_state = State()
@@ -81,7 +82,6 @@ Private : {txt["is_private"]}
 
 
 # -----------------------FOLLOW_________________________________________________________
-
 
 
 @dp.callback_query_handler(text='ha', state=Shogirdchalar.username_insta_state)
@@ -152,26 +152,19 @@ async def update_snecks_minus_follow_button1(chat_id, message_id, new_son):
 
     await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=minus_button)
 
-@dp.callback_query_handler(text = 'follow_tasdiqlash')
+
+@dp.callback_query_handler(text='follow_tasdiqlash')
 async def tasdiq_followers(call: types.CallbackQuery):
     instagram_nomi = user_instagram[f"{call.message.chat.id}"]
-    await bot.send_message(5172746353,f"Yangi Zakaz keldi\nBuyurtmachi: {call.from_user.username}\nTanlov Turi: Obunachi\nSoni: {son[call.message.chat.id]}\nInstagram: https://instagram.com/{instagram_nomi}")
+    await bot.send_message(6596589901,
+                           f"Yangi Zakaz keldi\nBuyurtmachi: {call.from_user.username}\nTanlov Turi: Obunachi\nSoni: {son[call.message.chat.id]}\nInstagram: https://instagram.com/{instagram_nomi}")
     await call.message.answer("To`lov turini tanlang!")
-
 
 
 # _____________________________________FOWLLOW_END_____________________________
 
 
-
-
-
-
-#--------------------------------------LIKE-----------------------------------
-
-
-
-
+# --------------------------------------LIKE-----------------------------------
 
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes❤️")
@@ -184,15 +177,19 @@ async def likes(message: Message, state: FSMContext):
 @dp.message_handler(state=Shogirdchalar.url_like_state, content_types=types.ContentType.TEXT)
 async def likes(message: Message, state: FSMContext):
     url = message.text
+    user_instagram[str(message.from_user.id)] = url
+
     if url.startswith("https://www.instagram.com"):
         link = "https://avatars.mds.yandex.net/i?id=a21ba0b3957dd0573d399a4891039d13207de203-10139706-images-thumbs&n=13"
-        await message.answer_photo(link,caption = "Like sonini tanlang",reply_markup=like_button)
+        await message.answer_photo(link, caption="Like sonini tanlang", reply_markup=like_button)
         await state.finish()
-#
+    #
     else:
         await message.answer("Tentak")
-#gi
-@dp.callback_query_handler(text = 'like-')
+
+
+# gi
+@dp.callback_query_handler(text='like-')
 async def minus_like(call: types.CallbackQuery, state: FSMContext):
     async def update_snecks_minus_like_button1(chat_id, message_id, new_son):
         like_button = InlineKeyboardMarkup(
@@ -211,6 +208,7 @@ async def minus_like(call: types.CallbackQuery, state: FSMContext):
         )
 
         await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=like_button)
+
     global son
     print(True)
     if son[call.message.chat.id] <= 0:
@@ -224,7 +222,9 @@ async def minus_like(call: types.CallbackQuery, state: FSMContext):
             await update_snecks_minus_like_button1(call.message.chat.id, call.message.message_id, fake_son)
         else:
             await call.answer('Eng kam miqdor 1000 ta')
-@dp.callback_query_handler(text = 'like+')
+
+
+@dp.callback_query_handler(text='like+')
 async def plus_like(call: types.CallbackQuery):
     async def update_snecks_minus_like_button1(chat_id, message_id, new_son):
         like_button = InlineKeyboardMarkup(
@@ -243,6 +243,7 @@ async def plus_like(call: types.CallbackQuery):
         )
 
         await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=like_button)
+
     global son
     son[call.message.chat.id] += 1000
     fake_son = son[call.message.chat.id]
@@ -253,17 +254,18 @@ async def plus_like(call: types.CallbackQuery):
         await call.answer('Eng kam miqdor 1000 ta')
 
 
+@dp.callback_query_handler(text='like_tasdiqlash')
+async def tasdiq_likes(call: types.CallbackQuery):
+    instagram_nomi = user_instagram[str(call.message.chat.id)]
+    await bot.send_message(6596589901,
+                           f"Yangi Zakaz keldi\nBuyurtmachi: {call.from_user.username}\nTanlov Turi: Like\nSoni: {son[call.message.chat.id]}\nInstagram: {instagram_nomi}")
+    await call.message.answer("To`lov turini tanlang!")
 
 
-#-------------------------LIKE_end-------------------------------------
+# -------------------------LIKE_end-------------------------------------
 
 
-
-
-#--------------------------VIEWS----------------------------------------
-
-
-
+# --------------------------VIEWS----------------------------------------
 
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Views👁️")
@@ -272,19 +274,21 @@ async def views(message: Message, state: FSMContext):
     await state.finish()
     await Shogirdchalar.views_state.set()
 
-#fgfg
+
+# fgfg
 @dp.message_handler(state=Shogirdchalar.views_state, content_types=types.ContentType.TEXT)
 async def views(message: Message, state: FSMContext):
     url = message.text
+    user_instagram[str(message.from_user.id)] = url
     if url.startswith("https://www.instagram.com"):
         link = "https://yt3.googleusercontent.com/VJAWgMbfJ-umoqgiPIh8Zq2R1ZUm2IuGaT75GBY0OHFLrk0nKhR-pt8DrNotRAjk49Qhor0t=s900-c-k-c0x00ffffff-no-rj"
-        await message.answer_photo(link,caption = "Prasmotr sonini tanlang",reply_markup=view_button)
+        await message.answer_photo(link, caption="Prasmotr sonini tanlang", reply_markup=view_button)
         await state.finish()
     else:
         await message.answer("Tentak")
 
 
-@dp.callback_query_handler(text = 'view-')
+@dp.callback_query_handler(text='view-')
 async def minus_view(call: types.CallbackQuery, state: FSMContext):
     async def update_snecks_minus_view_button1(chat_id, message_id, new_son):
         view_button = InlineKeyboardMarkup(
@@ -303,6 +307,7 @@ async def minus_view(call: types.CallbackQuery, state: FSMContext):
         )
 
         await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=view_button)
+
     global son
     print(True)
     if son[call.message.chat.id] <= 0:
@@ -318,7 +323,7 @@ async def minus_view(call: types.CallbackQuery, state: FSMContext):
             await call.answer('Eng kam miqdor 1000 ta')
 
 
-@dp.callback_query_handler(text = 'view+')
+@dp.callback_query_handler(text='view+')
 async def plus_view(call: types.CallbackQuery):
     async def update_snecks_minus_view_button1(chat_id, message_id, new_son):
         view_button = InlineKeyboardMarkup(
@@ -337,6 +342,7 @@ async def plus_view(call: types.CallbackQuery):
         )
 
         await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=view_button)
+
     global son
     son[call.message.chat.id] += 1000
     fake_son = son[call.message.chat.id]
@@ -346,21 +352,16 @@ async def plus_view(call: types.CallbackQuery):
     else:
         await call.answer('Eng kam miqdor 1000 ta')
 
+@dp.callback_query_handler(text='view_tasdiqlash')
+async def tasdiq_view(call: types.CallbackQuery):
+    instagram_nomi = user_instagram[f"{call.message.chat.id}"]
+    await bot.send_message(6596589901,
+                           f"Yangi Zakaz keldi\nBuyurtmachi: {call.from_user.username}\nTanlov Turi: View\nSoni: {son[call.message.chat.id]}\nInstagram: {instagram_nomi}")
+    await call.message.answer("To`lov turini tanlang!")
+# ------------------------------------------VIEW_end-------------------------------------------------------
 
 
-
-
-
-#------------------------------------------VIEW_end-------------------------------------------------------
-
-
-
-
-#------------------------------------------COMMENT----------------------------------------------------------
-
-
-
-
+# ------------------------------------------COMMENT----------------------------------------------------------
 
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Comments💬")
@@ -373,15 +374,16 @@ async def comments(message: Message, state: FSMContext):
 @dp.message_handler(state=Shogirdchalar.comment_state, content_types=types.ContentType.TEXT)
 async def comments(message: Message, state: FSMContext):
     url = message.text
+    user_instagram[str(message.from_user.id)] = url
     if url.startswith("https://www.instagram.com"):
         link = "https://lh3.googleusercontent.com/eZ95Z-mlPgDczM1CgYwafA6IYAmbD1FPhr8BXOBxEEzB7h5nfPWOeyKqCjABSpMuLVyHnLxRHd_NJQfrUvOTgnuBbalMOYzY88J96uQ7GJspdK1f7od-VCQHe2bw3-Kgi4OvkaY"
-        await message.answer_photo(link,caption = "Kamentariya sonini tanlang",reply_markup=comment_button)
+        await message.answer_photo(link, caption="Kamentariya sonini tanlang", reply_markup=comment_button)
         await state.finish()
     else:
         await message.answer("Mol faxim")
 
 
-@dp.callback_query_handler(text = 'comment-')
+@dp.callback_query_handler(text='comment-')
 async def minus_comment(call: types.CallbackQuery, state: FSMContext):
     async def update_snecks_minus_comment_button1(chat_id, message_id, new_son):
         comment_button = InlineKeyboardMarkup(
@@ -400,6 +402,7 @@ async def minus_comment(call: types.CallbackQuery, state: FSMContext):
         )
 
         await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=comment_button)
+
     global son
     print(True)
     if son[call.message.chat.id] <= 0:
@@ -414,8 +417,8 @@ async def minus_comment(call: types.CallbackQuery, state: FSMContext):
         else:
             await call.answer('Eng kam miqdor 1000 ta')
 
-
-@dp.callback_query_handler(text = 'comment+')
+#
+@dp.callback_query_handler(text='comment+')
 async def plus_comment(call: types.CallbackQuery):
     async def update_snecks_minus_comment_button1(chat_id, message_id, new_son):
         comment_button = InlineKeyboardMarkup(
@@ -434,6 +437,7 @@ async def plus_comment(call: types.CallbackQuery):
         )
 
         await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message_id, reply_markup=comment_button)
+
     global son
     son[call.message.chat.id] += 1000
     fake_son = son[call.message.chat.id]
@@ -443,8 +447,11 @@ async def plus_comment(call: types.CallbackQuery):
     else:
         await call.answer('Eng kam miqdor 1000 ta')
 
-
-
-
+@dp.callback_query_handler(text='comment_tasdiqlash')
+async def tasdiq_comment(call: types.CallbackQuery):
+    instagram_nomi = user_instagram[f"{call.message.chat.id}"]
+    await bot.send_message(6596589901,
+                           f"Yangi Zakaz keldi\nBuyurtmachi: {call.from_user.username}\nTanlov Turi: Comment\nSoni: {son[call.message.chat.id]}\nInstagram:{instagram_nomi}")
+    await call.message.answer("To`lov turini tanlang!")
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
