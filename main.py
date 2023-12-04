@@ -417,7 +417,7 @@ async def minus_comment(call: types.CallbackQuery, state: FSMContext):
         else:
             await call.answer('Eng kam miqdor 1000 ta')
 
-
+#
 @dp.callback_query_handler(text='comment+')
 async def plus_comment(call: types.CallbackQuery):
     async def update_snecks_minus_comment_button1(chat_id, message_id, new_son):
