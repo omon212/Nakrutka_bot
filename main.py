@@ -154,21 +154,21 @@ async def plus_like(call: types.CallbackQuery):
 
 
 
+
+
+
+
+
+
+
+
+
 @dp.callback_query_handler(text='like_tasdiqlash')
 async def tasdiq_likes(call: types.CallbackQuery):
     instagram_nomi = user_instagram[str(call.message.chat.id)]
     await bot.send_message(6498877955,f"<b>Yangi Zakaz keldi</b>\n<b>Buyurtmachi</b>: {call.from_user.username}\n<b>Tanlov Turi</b>: Like\n<b>Soni</b>: {son[call.message.chat.id]}\n<b>Instagram</b>: {instagram_nomi}")
     await call.message.answer("To`lov turini tanlang!")
 
-# -------------------------LIKE_end-------------------------------------
-
-
-# --------------------------VIEWS----------------------------------------
-
-# ------------------------------------------VIEW_end-------------------------------------------------------
-
-
-# ------------------------------------------COMMENT----------------------------------------------------------
 
 if __name__ == '__main__':
     from follow import dp,bot
