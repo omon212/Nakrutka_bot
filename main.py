@@ -149,6 +149,11 @@ async def plus_like(call: types.CallbackQuery):
         await call.answer('Eng kam miqdor 1000 ta')
 
 
+
+
+
+
+
 @dp.callback_query_handler(text='like_tasdiqlash')
 async def tasdiq_likes(call: types.CallbackQuery):
     instagram_nomi = user_instagram[str(call.message.chat.id)]
