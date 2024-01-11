@@ -123,4 +123,11 @@ Soni : <b>{son[call.message.chat.id]}</b>
 Hisob : <b>{call.message.chat.id}</b>
 Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
     ''',parse_mode="html")
-    await call.message.answer("Tolov turini tanlang : ")
+    await call.message.answer(f'''
+To'lov karta raqami 💳 : <code>8600092990835856</code>
+
+To'lovni qilgandan so'ng checkni adminga yuboring.
+Yo'qsa buyurtmangiz amalga oshirilmaydi !
+
+Admin : <a href="https://t.me/check_nakrutka">ADMIN CHECK BOT</a>
+    ''')
