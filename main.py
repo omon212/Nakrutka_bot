@@ -149,6 +149,8 @@ async def tasdiq_followers(call: types.CallbackQuery):
     <b>Yangi buyurtma</b>
 Url : {url}
 Tur : <b>Like</b>
+
+
 Soni : <b>{son[call.message.chat.id]}</b>
 Narxi : {son[call.message.chat.id] * 3} so'm
 Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
