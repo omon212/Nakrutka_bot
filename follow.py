@@ -50,6 +50,7 @@ async def followers(call: types.CallbackQuery, state: FSMContext):
 @dp.callback_query_handler(text='yoq', state=Shogirdchalar.username_insta_state)
 async def followers(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
+    await call.message.answer("Tanlang : ",reply_markup=instagram_paket)
 
 
 
@@ -121,12 +122,12 @@ async def tasdiq_followers(call: types.CallbackQuery):
 Username : <a href="https://www.instagram.com/{user}">{user}</a>
 Tur : <b>Followers</b>
 Soni : <b>{son[call.message.chat.id]}</b>
-Hisob : <b>{call.message.chat.id}</b>
+Narxi : {son[call.message.chat.id] * 5} so'm
 Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
     ''',parse_mode="html")
     await call.message.answer(f'''
 Obunachilar soni : <b>{son[call.message.chat.id]}</b>
-Narxi : {son[call.message.chat.id] * 5} so'm
+Narxi : {son[call.message.chat.id] * 7} so'm
 To'lov karta raqami 💳 : <code>8600092990835856</code>
 
 To'lovni qilgandan so'ng checkni adminga yuboring.

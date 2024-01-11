@@ -6,7 +6,7 @@ from aiogram.utils import executor
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from keyboards.defaults.instagram import instagram_paket
+from keyboards.defaults.instagram import instagram_paket, orqaqa
 from instagpy import InstaGPy
 
 # Set up logging
@@ -54,13 +54,14 @@ Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang!
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes❤️")
 async def likes(message: Message, state: FSMContext):
-    await message.answer("Url kiriting")
+    await message.answer("Stories yoki post linkini yuboring : ",reply_markup=orqaqa)
     await state.finish()
     await Shogirdchalar.url_like_state.set()
 
 
 @dp.message_handler(state=Shogirdchalar.url_like_state, content_types=types.ContentType.TEXT)
 async def likes(message: Message, state: FSMContext):
+    global url
     url = message.text
     user_instagram[str(message.from_user.id)] = url
 
@@ -68,9 +69,9 @@ async def likes(message: Message, state: FSMContext):
         link = "https://avatars.mds.yandex.net/i?id=a21ba0b3957dd0573d399a4891039d13207de203-10139706-images-thumbs&n=13"
         await message.answer_photo(link, caption="Like sonini tanlang", reply_markup=like_button)
         await state.finish()
-    #
     else:
-        await message.answer("Tentak")
+        await message.answer("Url noto'gri kiritildi qaytadan urinib koring !",reply_markup=orqaqa)
+        await Shogirdchalar.url_like_state.set()
 
 
 # gi
@@ -142,16 +143,30 @@ async def plus_like(call: types.CallbackQuery):
 
 
 
-
-
-
-
 @dp.callback_query_handler(text='like_tasdiqlash')
-async def tasdiq_likes(call: types.CallbackQuery):
-    instagram_nomi = user_instagram[str(call.message.chat.id)]
-    await bot.send_message(6498877955,f"<b>Yangi Zakaz keldi</b>\n<b>Buyurtmachi</b>: {call.from_user.username}\n<b>Tanlov Turi</b>: Like\n<b>Soni</b>: {son[call.message.chat.id]}\n<b>Instagram</b>: {instagram_nomi}")
-    await call.message.answer("To`lov turini tanlang!")
+async def tasdiq_followers(call: types.CallbackQuery):
+    await bot.send_message(6498877955,f'''
+    <b>Yangi buyurtma</b>
+Url : {url}
+Tur : <b>Like</b>
+Soni : <b>{son[call.message.chat.id]}</b>
+Narxi : {son[call.message.chat.id] * 3} so'm
+Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
+    ''',parse_mode="html")
+    await call.message.answer(f'''
+Likelar soni : <b>{son[call.message.chat.id]}</b>
+Narxi : {son[call.message.chat.id] * 5} so'm
+To'lov karta raqami 💳 : <code>8600092990835856</code>
 
+To'lovni qilgandan so'ng checkni adminga yuboring.
+Yo'qsa buyurtmangiz amalga oshirilmaydi !
+
+Admin : <a href="https://t.me/check_nakrutka">ADMIN CHECK BOT</a>
+    ''')
+@dp.message_handler(text="Asosiy menu🔙")
+async def orqaga_qaytish(message: types.Message,state:FSMContext):
+    await message.answer("Tanlang : ", reply_markup=instagram_paket)
+    await Shogirdchalar.Instagram_state.set()
 
 if __name__ == '__main__':
     from follow import dp,bot
