@@ -1,3 +1,4 @@
+from keyboards.defaults.instagram import orqaqa, instagram_paket
 from main import dp, bot, son, Shogirdchalar, user_instagram, API_TOKEN
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.dispatcher import FSMContext
@@ -7,7 +8,7 @@ from instagpy import InstaGPy
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Followers👤")
 async def followers(message: Message, state: FSMContext):
-    await message.answer("Username Kiriting")
+    await message.answer("Username Kiriting",reply_markup=orqaqa)
     await state.finish()
     await Shogirdchalar.username_insta_state.set()
 
@@ -124,6 +125,8 @@ Hisob : <b>{call.message.chat.id}</b>
 Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
     ''',parse_mode="html")
     await call.message.answer(f'''
+Obunachilar soni : <b>{son[call.message.chat.id]}</b>
+Narxi : {son[call.message.chat.id] * 5} so'm
 To'lov karta raqami 💳 : <code>8600092990835856</code>
 
 To'lovni qilgandan so'ng checkni adminga yuboring.
@@ -131,3 +134,9 @@ Yo'qsa buyurtmangiz amalga oshirilmaydi !
 
 Admin : <a href="https://t.me/check_nakrutka">ADMIN CHECK BOT</a>
     ''')
+
+
+@dp.message_handler(text="Asosiy menu🔙")
+async def orqaga_qaytish(message: types.Message,state:FSMContext):
+    await message.answer("Tanlang : ", reply_markup=instagram_paket)
+    await Shogirdchalar.Instagram_state.set()
