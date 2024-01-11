@@ -149,15 +149,13 @@ async def tasdiq_followers(call: types.CallbackQuery):
     <b>Yangi buyurtma</b>
 Url : {url}
 Tur : <b>Like</b>
-
-
 Soni : <b>{son[call.message.chat.id]}</b>
 Narxi : {son[call.message.chat.id] * 5} so'm
 Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
     ''',parse_mode="html")
     await call.message.answer(f'''
-Likelar soni : <b>{son[call.message.chat.id]}</b>
-Narxi : {son[call.message.chat.id] * 5} so'm
+Likelar soni : <b>{son[call.message.chat.id]}</b> ❤️
+Narxi : {son[call.message.chat.id] * 5} so'm 💰
 To'lov karta raqami 💳 : <code>8600092990835856</code>
 
 To'lovni qilgandan so'ng checkni adminga yuboring.

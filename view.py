@@ -1,3 +1,4 @@
+from keyboards.defaults.instagram import orqaqa
 from main import dp, bot, son, Shogirdchalar, user_instagram, API_TOKEN
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.dispatcher import FSMContext
@@ -10,7 +11,7 @@ from instagpy import InstaGPy
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Views👁️")
 async def views(message: Message, state: FSMContext):
-    await message.answer("Url kiriting")
+    await message.answer("Stories yoki post linkini yuboring : ",reply_markup=orqaqa)
     await state.finish()
     await Shogirdchalar.views_state.set()
 
@@ -18,9 +19,10 @@ async def views(message: Message, state: FSMContext):
 
 @dp.message_handler(state=Shogirdchalar.views_state, content_types=types.ContentType.TEXT)
 async def views(message: Message, state: FSMContext):
-    url = message.text
-    user_instagram[str(message.from_user.id)] = url
-    if url.startswith("https://www.instagram.com"):
+    global url3
+    url3 = message.text
+    user_instagram[str(message.from_user.id)] = url3
+    if url3.startswith("https://www.instagram.com"):
         link = "https://yt3.googleusercontent.com/VJAWgMbfJ-umoqgiPIh8Zq2R1ZUm2IuGaT75GBY0OHFLrk0nKhR-pt8DrNotRAjk49Qhor0t=s900-c-k-c0x00ffffff-no-rj"
         await message.answer_photo(link, caption="Prasmotr sonini tanlang", reply_markup=view_button)
         await state.finish()
@@ -93,8 +95,22 @@ async def plus_view(call: types.CallbackQuery):
         await call.answer('Eng kam miqdor 1000 ta')
 
 @dp.callback_query_handler(text='view_tasdiqlash')
-async def tasdiq_view(call: types.CallbackQuery):
-    instagram_nomi = user_instagram[f"{call.message.chat.id}"]
-    await bot.send_message(6596589901,
-                           f"Yangi Zakaz keldi\nBuyurtmachi: {call.from_user.username}\nTanlov Turi: View\nSoni: {son[call.message.chat.id]}\nInstagram: {instagram_nomi}")
-    await call.message.answer("To`lov turini tanlang!")
+async def tasdiq_followers(call: types.CallbackQuery):
+    await bot.send_message(6498877955,f'''
+    <b>Yangi buyurtma</b>
+Url : {url3}
+Tur : <b>View</b>
+Soni : <b>{son[call.message.chat.id]}</b>
+Narxi : {son[call.message.chat.id] * 5} so'm
+Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
+    ''',parse_mode="html")
+    await call.message.answer(f'''
+View soni : <b>{son[call.message.chat.id]}</b> 👁
+Narxi : {son[call.message.chat.id] * 5} so'm 💰
+To'lov karta raqami 💳 : <code>8600092990835856</code>
+
+To'lovni qilgandan so'ng checkni adminga yuboring.
+Yo'qsa buyurtmangiz amalga oshirilmaydi !
+
+Admin : <a href="https://t.me/check_nakrutka">ADMIN CHECK BOT</a>
+    ''')
