@@ -3,7 +3,6 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ParseMode
 from aiogram.utils import executor
-from keyboards.defaults.default_for_user import socials
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -42,24 +41,15 @@ class Shogirdchalar(StatesGroup):
 @dp.message_handler(commands='start')
 async def for_start(message: types.Message, state: FSMContext):
     son[message.from_user.id] = 0
-    await message.answer(message.from_user.id)
-    await message.answer(f"Assalomu Aleykum <code>{message.from_user.full_name}</code>", reply_markup=socials)
-    await Shogirdchalar.Socials_button_state.set()
+    await message.answer(f"""
+Assalomu aleykum <b>{message.from_user.first_name}</b>!
 
+Bizning Instagram uchun Nakrutka botiga xuch kelibsiz 
 
-@dp.message_handler(text="Instagram📱", state=Shogirdchalar.Socials_button_state)
-async def insta_logging(message: Message, state: FSMContext):
-    await message.answer("Siz Instagram Bo`limini Tanladingiz\n\nTariflardan birini tanlang",
-                         reply_markup=instagram_paket)
-    await state.finish()
+Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang! 
+    """, reply_markup=instagram_paket)
     await Shogirdchalar.Instagram_state.set()
 
-
-
-# _____________________________________FOWLLOW_END_____________________________
-
-
-# --------------------------------------LIKE-----------------------------------
 
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes❤️")
@@ -147,13 +137,6 @@ async def plus_like(call: types.CallbackQuery):
         await update_snecks_minus_like_button1(call.message.chat.id, call.message.message_id, fake_son)
     else:
         await call.answer('Eng kam miqdor 1000 ta')
-
-
-
-
-
-
-
 
 
 

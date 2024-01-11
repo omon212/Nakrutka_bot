@@ -14,21 +14,26 @@ async def followers(message: Message, state: FSMContext):
 
 @dp.message_handler(state=Shogirdchalar.username_insta_state)
 async def username(message: Message, state: FSMContext):
-    user = message.text
-    insta = InstaGPy(use_mutiple_account=False, session_ids=None, min_requests=None, max_requests=None)
-    txt = insta.get_user_basic_details(f'{user}')
-    print(txt)
-    user_instagram[f'{message.from_user.id}'] = txt["username"]
-    await message.answer(f"""
+    try :
+        global txt
+        global user
+        user = message.text
+        insta = InstaGPy(use_mutiple_account=False, session_ids=None, min_requests=None, max_requests=None)
+        txt = insta.get_user_basic_details(f'{user}')
+        print(txt)
+        user_instagram[f'{message.from_user.id}'] = txt["username"]
+        await message.answer(f"""
 Username: {txt["username"]}
 
-Full Name : {txt["full_name"]}
-
-Private : {txt["is_private"]}
-
-
 <b>Sizning akkauntingizligiga ishonchingiz komilmi?</b>
-    """, reply_markup=true_false)
+        """, reply_markup=true_false)
+    except:
+        await message.answer(f"""
+Username: {user}
+
+<b>Sizning akkauntingizligiga ishonchingiz komilmi?</b>       
+        """,reply_markup=true_false)
+
 
 
 # -----------------------FOLLOW_________________________________________________________
@@ -40,6 +45,12 @@ async def followers(call: types.CallbackQuery, state: FSMContext):
     photo = 'https://img.freepik.com/premium-vector/100k-social-media-followers-design_54625-114.jpg?w=2000'
     await call.message.answer_photo(photo, reply_markup=follow_button, caption="Follow👥")
     await state.finish()
+
+@dp.callback_query_handler(text='yoq', state=Shogirdchalar.username_insta_state)
+async def followers(call: types.CallbackQuery, state: FSMContext):
+    await call.message.delete()
+
+
 
 
 @dp.callback_query_handler(text='plus_follow')
@@ -104,10 +115,12 @@ async def update_snecks_minus_follow_button1(chat_id, message_id, new_son):
 
 @dp.callback_query_handler(text='follow_tasdiqlash')
 async def tasdiq_followers(call: types.CallbackQuery):
-    instagram_nomi = user_instagram[f"{call.message.chat.id}"]
-    await bot.send_message(
-        6498877955,
-        f"<b>Yangi Zakaz keldi</b>\n<b>Buyurtmachi</b>: {call.from_user.username}\n<b>Tanlov Turi</b>: Obunachi\n<b>Soni</b>: {son[call.message.chat.id]}\n<b>Instagram</b>: <a href='https://instagram.com/{instagram_nomi}'>{instagram_nomi}</a>",
-        parse_mode="html"
-    )
+    await bot.send_message(6498877955,f'''
+    <b>Yangi buyurtma</b>
+Username : <a href="https://www.instagram.com/{user}">{user}</a>
+Tur : <b>Followers</b>
+Soni : <b>{son[call.message.chat.id]}</b>
+Hisob : <b>{call.message.chat.id}</b>
+Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
+    ''',parse_mode="html")
     await call.message.answer("Tolov turini tanlang : ")
