@@ -152,7 +152,7 @@ Tur : <b>Like</b>
 
 
 Soni : <b>{son[call.message.chat.id]}</b>
-Narxi : {son[call.message.chat.id] * 3} so'm
+Narxi : {son[call.message.chat.id] * 5} so'm
 Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
     ''',parse_mode="html")
     await call.message.answer(f'''

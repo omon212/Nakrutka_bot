@@ -1,3 +1,5 @@
+from keyboards.defaults.instagram import orqaqa
+from keyboards.inlines.accses import comment_button
 from main import dp, bot, son, Shogirdchalar, user_instagram, API_TOKEN
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.dispatcher import FSMContext
@@ -9,16 +11,17 @@ from instagpy import InstaGPy
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Comments💬")
 async def comments(message: Message, state: FSMContext):
-    await message.answer("Url kiriting")
+    await message.answer("Stories yoki post linkini yuboring : ",reply_markup=orqaqa)
     await state.finish()
     await Shogirdchalar.comment_state.set()
 
 
 @dp.message_handler(state=Shogirdchalar.comment_state, content_types=types.ContentType.TEXT)
 async def comments(message: Message, state: FSMContext):
-    url = message.text
-    user_instagram[str(message.from_user.id)] = url
-    if url.startswith("https://www.instagram.com"):
+    global url2
+    url2 = message.text
+    user_instagram[str(message.from_user.id)] = url2
+    if url2.startswith("https://www.instagram.com"):
         link = "https://lh3.googleusercontent.com/eZ95Z-mlPgDczM1CgYwafA6IYAmbD1FPhr8BXOBxEEzB7h5nfPWOeyKqCjABSpMuLVyHnLxRHd_NJQfrUvOTgnuBbalMOYzY88J96uQ7GJspdK1f7od-VCQHe2bw3-Kgi4OvkaY"
         await message.answer_photo(link, caption="Kamentariya sonini tanlang", reply_markup=comment_button)
         await state.finish()
@@ -91,8 +94,22 @@ async def plus_comment(call: types.CallbackQuery):
         await call.answer('Eng kam miqdor 1000 ta')
 
 @dp.callback_query_handler(text='comment_tasdiqlash')
-async def tasdiq_comment(call: types.CallbackQuery):
-    instagram_nomi = user_instagram[f"{call.message.chat.id}"]
-    await bot.send_message(6596589901,
-                           f"Yangi Zakaz keldi\nBuyurtmachi: {call.from_user.username}\nTanlov Turi: Comment\nSoni: {son[call.message.chat.id]}\nInstagram:{instagram_nomi}")
-    await call.message.answer("To`lov turini tanlang!")
+async def tasdiq_followers(call: types.CallbackQuery):
+    await bot.send_message(6498877955,f'''
+    <b>Yangi buyurtma</b>
+Url : {url2}
+Tur : <b>Comment</b>
+Soni : <b>{son[call.message.chat.id]}</b>
+Narxi : {son[call.message.chat.id] * 5} so'm
+Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
+    ''',parse_mode="html")
+    await call.message.answer(f'''
+Commentlar soni : <b>{son[call.message.chat.id]}</b>
+Narxi : {son[call.message.chat.id] * 5} so'm
+To'lov karta raqami 💳 : <code>8600092990835856</code>
+
+To'lovni qilgandan so'ng checkni adminga yuboring.
+Yo'qsa buyurtmangiz amalga oshirilmaydi !
+
+Admin : <a href="https://t.me/check_nakrutka">ADMIN CHECK BOT</a>
+    ''')

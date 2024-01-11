@@ -122,7 +122,7 @@ async def tasdiq_followers(call: types.CallbackQuery):
 Username : <a href="https://www.instagram.com/{user}">{user}</a>
 Tur : <b>Followers</b>
 Soni : <b>{son[call.message.chat.id]}</b>
-Narxi : {son[call.message.chat.id] * 5} so'm
+Narxi : {son[call.message.chat.id] * 7} so'm
 Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.message.chat.username}</a>
     ''',parse_mode="html")
     await call.message.answer(f'''
