@@ -53,16 +53,12 @@ Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang!
 
 
 
+
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes ❤️")
 async def likes(message: Message, state: FSMContext):
     await message.answer("Stories yoki post linkini yuboring : ",reply_markup=orqaqa)
     await state.finish()
     await Shogirdchalar.url_like_state.set()
-
-
-
-
-
 
 
 @dp.message_handler(state=Shogirdchalar.url_like_state, content_types=types.ContentType.TEXT)
@@ -144,6 +140,10 @@ async def plus_like(call: types.CallbackQuery):
         await update_snecks_minus_like_button1(call.message.chat.id, call.message.message_id, fake_son)
     else:
         await call.answer('Eng kam miqdor 1000 ta')
+
+
+
+
 
 
 
