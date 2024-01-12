@@ -1,4 +1,5 @@
 from keyboards.defaults.instagram import orqaqa
+from keyboards.inlines.accses import view_button
 from main import dp, bot, son, Shogirdchalar, user_instagram, API_TOKEN
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.dispatcher import FSMContext
@@ -9,7 +10,7 @@ from instagpy import InstaGPy
 
 
 
-@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Views👁️")
+@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Views 👁️")
 async def views(message: Message, state: FSMContext):
     await message.answer("Stories yoki post linkini yuboring : ",reply_markup=orqaqa)
     await state.finish()
@@ -23,11 +24,12 @@ async def views(message: Message, state: FSMContext):
     url3 = message.text
     user_instagram[str(message.from_user.id)] = url3
     if url3.startswith("https://www.instagram.com"):
-        link = "https://yt3.googleusercontent.com/VJAWgMbfJ-umoqgiPIh8Zq2R1ZUm2IuGaT75GBY0OHFLrk0nKhR-pt8DrNotRAjk49Qhor0t=s900-c-k-c0x00ffffff-no-rj"
-        await message.answer_photo(link, caption="Prasmotr sonini tanlang", reply_markup=view_button)
+        photo = open('images/view.jpg', 'rb')
+        await message.answer_photo(photo=photo, caption="Prasmotr sonini tanlang", reply_markup=view_button)
         await state.finish()
     else:
-        await message.answer("Tentak")
+        await message.answer("Urlni noto'g'ri kiritdingiz qaytadan uriib ko'ring !")
+        await Shogirdchalar.views_state.set()
 
 
 @dp.callback_query_handler(text='view-')

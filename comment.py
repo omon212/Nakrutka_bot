@@ -9,7 +9,7 @@ from instagpy import InstaGPy
 
 
 
-@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Comments💬")
+@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Comments 💬")
 async def comments(message: Message, state: FSMContext):
     await message.answer("Stories yoki post linkini yuboring : ",reply_markup=orqaqa)
     await state.finish()
@@ -22,11 +22,12 @@ async def comments(message: Message, state: FSMContext):
     url2 = message.text
     user_instagram[str(message.from_user.id)] = url2
     if url2.startswith("https://www.instagram.com"):
-        link = "https://lh3.googleusercontent.com/eZ95Z-mlPgDczM1CgYwafA6IYAmbD1FPhr8BXOBxEEzB7h5nfPWOeyKqCjABSpMuLVyHnLxRHd_NJQfrUvOTgnuBbalMOYzY88J96uQ7GJspdK1f7od-VCQHe2bw3-Kgi4OvkaY"
-        await message.answer_photo(link, caption="Kamentariya sonini tanlang", reply_markup=comment_button)
+        photo = open('images/comment.png', 'rb')
+        await message.answer_photo(photo=photo, caption="Kamentariya sonini tanlang", reply_markup=comment_button)
         await state.finish()
     else:
-        await message.answer("Mol faxim")
+        await message.answer("Urlni noto'g'ri kiritdingiz qaytadan uriib ko'ring !")
+        await Shogirdchalar.comment_state.set()
 
 
 @dp.callback_query_handler(text='comment-')

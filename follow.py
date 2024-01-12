@@ -6,9 +6,9 @@ from main import true_false, follow_button
 from aiogram import types
 from instagpy import InstaGPy
 
-@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Followers👤")
+@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Followers 👤")
 async def followers(message: Message, state: FSMContext):
-    await message.answer("Username Kiriting",reply_markup=orqaqa)
+    await message.answer("Username Kiriting")
     await state.finish()
     await Shogirdchalar.username_insta_state.set()
 
@@ -43,7 +43,7 @@ Username: {user}
 @dp.callback_query_handler(text='ha', state=Shogirdchalar.username_insta_state)
 async def followers(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
-    photo = 'https://img.freepik.com/premium-vector/100k-social-media-followers-design_54625-114.jpg?w=2000'
+    photo = open('images/follower.png', 'rb')
     await call.message.answer_photo(photo, reply_markup=follow_button, caption="Follow👥")
     await state.finish()
 
@@ -51,6 +51,7 @@ async def followers(call: types.CallbackQuery, state: FSMContext):
 async def followers(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
     await call.message.answer("Tanlang : ",reply_markup=instagram_paket)
+    await Shogirdchalar.Instagram_state.set()
 
 
 
@@ -134,7 +135,7 @@ To'lovni qilgandan so'ng checkni adminga yuboring.
 Yo'qsa buyurtmangiz amalga oshirilmaydi !
 
 Admin : <a href="https://t.me/check_nakrutka">ADMIN CHECK BOT</a>
-    ''')
+    ''',reply_markup=orqaqa)
 
 
 @dp.message_handler(text="Asosiy menu🔙")

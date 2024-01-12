@@ -9,6 +9,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from keyboards.defaults.instagram import instagram_paket, orqaqa
 from instagpy import InstaGPy
 
+
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 from keyboards.inlines.accses import true_false, follow_button, like_button, view_button, comment_button
@@ -52,7 +53,7 @@ Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang!
 
 
 
-@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes❤️")
+@dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes ❤️")
 async def likes(message: Message, state: FSMContext):
     await message.answer("Stories yoki post linkini yuboring : ",reply_markup=orqaqa)
     await state.finish()
@@ -66,7 +67,7 @@ async def likes(message: Message, state: FSMContext):
     user_instagram[str(message.from_user.id)] = url
 
     if url.startswith("https://www.instagram.com"):
-        link = "https://avatars.mds.yandex.net/i?id=a21ba0b3957dd0573d399a4891039d13207de203-10139706-images-thumbs&n=13"
+        link = open('images/like.png', 'rb')
         await message.answer_photo(link, caption="Like sonini tanlang", reply_markup=like_button)
         await state.finish()
     else:
