@@ -60,6 +60,11 @@ async def likes(message: Message, state: FSMContext):
     await Shogirdchalar.url_like_state.set()
 
 
+
+
+
+
+
 @dp.message_handler(state=Shogirdchalar.url_like_state, content_types=types.ContentType.TEXT)
 async def likes(message: Message, state: FSMContext):
     global url
