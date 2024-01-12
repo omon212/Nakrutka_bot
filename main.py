@@ -10,11 +10,10 @@ from keyboards.defaults.instagram import instagram_paket, orqaqa
 from instagpy import InstaGPy
 
 
-# Set up logging
 logging.basicConfig(level=logging.INFO)
 from keyboards.inlines.accses import true_false, follow_button, like_button, view_button, comment_button
 
-API_TOKEN = '6008658682:AAHPVyx4jUi_E87VOCJdDWjsTJaIhk8mThA'
+API_TOKEN = '6014525433:AAGh2IVQ8Xhyxh3qB0x8L_attKhKUw1lbho'
 
 bot = Bot(token=API_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -140,6 +139,13 @@ async def plus_like(call: types.CallbackQuery):
         await update_snecks_minus_like_button1(call.message.chat.id, call.message.message_id, fake_son)
     else:
         await call.answer('Eng kam miqdor 1000 ta')
+
+
+
+
+
+
+
 
 
 
