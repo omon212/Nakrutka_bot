@@ -55,6 +55,9 @@ def record_stat(user_id):
     conn.commit()
 
 
+
+
+
 @dp.message_handler(commands=['stats'])
 async def show_stats(message: types.Message):
     cursor.execute("SELECT COUNT(DISTINCT user_id) FROM stats")
