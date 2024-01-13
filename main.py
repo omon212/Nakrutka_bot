@@ -8,7 +8,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from keyboards.defaults.instagram import instagram_paket, orqaqa
 from instagpy import InstaGPy
-
+import sqlite3
 
 logging.basicConfig(level=logging.INFO)
 from keyboards.inlines.accses import true_false, follow_button, like_button, view_button, comment_button
@@ -38,15 +38,57 @@ class Shogirdchalar(StatesGroup):
     comment_state = State()
 
 
+
+conn = sqlite3.connect('stats.db')
+cursor = conn.cursor()
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS stats
+                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   user_id INTEGER,
+                   date DATE)''')
+
+conn.commit()
+
+
+def record_stat(user_id):
+    cursor.execute("INSERT INTO stats (user_id, date) VALUES (?, DATE('now'))", (user_id,))
+    conn.commit()
+
+
+@dp.message_handler(commands=['stats'])
+async def show_stats(message: types.Message):
+    cursor.execute("SELECT COUNT(DISTINCT user_id) FROM stats")
+    total_users = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(DISTINCT user_id) FROM stats WHERE date = DATE('now')")
+    today_users = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) FROM stats")
+    total_requests = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) FROM stats WHERE date = DATE('now')")
+    today_requests = cursor.fetchone()[0]
+    text = f"📊 Botdan foydalanish statistikasi:\n" \
+           f" ├ Jami foydalanuvchilar: {total_users}\n" \
+           f" ├ Bugungi foydalanuvchilar: {today_users}\n" \
+           f" ├ Jami so'rovlar: {total_requests}\n" \
+           f" └ Bugungi so'rovlar: {today_requests}"
+    await message.reply(text)
+
+
+
+# @dp.message_handler(commands='start')
+# async def start(message: types.Message):
+#     await message.answer(f"""
+# Assalomu aleykum
+#     """)
+
 @dp.message_handler(commands='start')
 async def for_start(message: types.Message, state: FSMContext):
     son[message.from_user.id] = 0
     await message.answer(f"""
 Assalomu aleykum <b>{message.from_user.first_name}</b>!
 
-Bizning Instagram uchun Nakrutka botiga xuch kelibsiz 
+Bizning Instagram uchun Nakrutka botiga xuch kelibsiz
 
-Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang! 
+Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang!
     """, reply_markup=instagram_paket)
     await Shogirdchalar.Instagram_state.set()
 
