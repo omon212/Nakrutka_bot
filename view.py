@@ -1,6 +1,6 @@
 from keyboards.defaults.instagram import orqaqa
 from keyboards.inlines.accses import view_button
-from main import dp, bot, son, Shogirdchalar, user_instagram, API_TOKEN
+from main import dp, bot, son, Shogirdchalar,  API_TOKEN
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.dispatcher import FSMContext
 from main import true_false, follow_button
@@ -22,7 +22,6 @@ async def views(message: Message, state: FSMContext):
 async def views(message: Message, state: FSMContext):
     global url3
     url3 = message.text
-    user_instagram[str(message.from_user.id)] = url3
     if url3.startswith("https://www.instagram.com"):
         photo = open('images/view.jpg', 'rb')
         await message.answer_photo(photo=photo, caption="Prasmotr sonini tanlang", reply_markup=view_button)

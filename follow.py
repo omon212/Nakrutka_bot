@@ -1,5 +1,5 @@
 from keyboards.defaults.instagram import orqaqa, instagram_paket
-from main import dp, bot, son, Shogirdchalar, user_instagram, API_TOKEN
+from main import dp, bot, son, Shogirdchalar,  API_TOKEN
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.dispatcher import FSMContext
 from main import true_false, follow_button
@@ -22,7 +22,6 @@ async def username(message: Message, state: FSMContext):
         insta = InstaGPy(use_mutiple_account=False, session_ids=None, min_requests=None, max_requests=None)
         txt = insta.get_user_basic_details(f'{user}')
         print(txt)
-        user_instagram[f'{message.from_user.id}'] = txt["username"]
         await message.answer(f"""
 Username: {txt["username"]}
 
