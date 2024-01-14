@@ -52,6 +52,9 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS stats
 conn.commit()
 
 
+
+
+
 def record_stat(user_id):
     cursor.execute("INSERT INTO stats (user_id, date) VALUES (?, DATE('now'))", (user_id,))
     conn.commit()
@@ -89,6 +92,7 @@ Avval telefon raqamingizni yuboring,
 yoki <b>+998XX XXXXXXX</b> ko'rinishida yozing.    
     ''',reply_markup=phone)
     await Shogirdchalar.get_phone.set()
+    await record_stat(message.from_user.id)
 
 @dp.message_handler(content_types=types.ContentType.CONTACT,state=Shogirdchalar.get_phone)
 async def for_start(message: types.Message, state: FSMContext):
@@ -101,6 +105,7 @@ Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang!
     """, reply_markup=instagram_paket)
     await state.finish()
     await Shogirdchalar.Instagram_state.set()
+
 
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes ❤️")
