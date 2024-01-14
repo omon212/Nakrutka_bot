@@ -59,6 +59,7 @@ async def followers(call: types.CallbackQuery, state: FSMContext):
 @dp.callback_query_handler(text='plus_follow')
 async def plus_follow(call: types.CallbackQuery):
     global son
+    son[call.message.from_user.id] = 0
     son[call.message.chat.id] += 1000
     fake_son = son[call.message.chat.id]
     print(fake_son)
@@ -88,6 +89,7 @@ async def update_snecks_follow_button(chat_id, message_id, new_son):
 async def minus_follow(call: types.CallbackQuery, state: FSMContext):
     global son
     print(True)
+    son[call.message.from_user.id] = 0
     if son[call.message.chat.id] <= 0:
         await call.answer('Eng kam miqdor 1000 ta')
     else:
