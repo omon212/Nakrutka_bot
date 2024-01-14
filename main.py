@@ -6,14 +6,15 @@ from aiogram.utils import executor
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from keyboards.defaults.instagram import instagram_paket, orqaqa
+from keyboards.defaults.instagram import instagram_paket, orqaqa, phone
 from instagpy import InstaGPy
 import sqlite3
+
 
 logging.basicConfig(level=logging.INFO)
 from keyboards.inlines.accses import true_false, follow_button, like_button, view_button, comment_button
 
-API_TOKEN = '6014525433:AAGh2IVQ8Xhyxh3qB0x8L_attKhKUw1lbho'
+API_TOKEN = '6014525433:AAG580QB5WriakLaLxcPjT4sRIUgW-F86bs'
 
 bot = Bot(token=API_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -36,6 +37,7 @@ class Shogirdchalar(StatesGroup):
     url_like_state = State()
     views_state = State()
     comment_state = State()
+    get_phone = State()
 
 
 
@@ -77,25 +79,28 @@ async def show_stats(message: types.Message):
 
 
 
-# @dp.message_handler(commands='start')
-# async def start(message: types.Message):
-#     await message.answer(f"""
-# Assalomu aleykum
-#     """)
 
-@dp.message_handler(commands='start')
+
+@dp.message_handler(commands=['start','help'])
+async def start(message:Message):
+    await message.answer("<b>I N S T A G R A M</b> botiga xush kelibsiz! ")
+    await message.answer('''
+Avval telefon raqamingizni yuboring,
+yoki <b>+998XX XXXXXXX</b> ko'rinishida yozing.    
+    ''',reply_markup=phone)
+    await Shogirdchalar.get_phone.set()
+
+@dp.message_handler(content_types=types.ContentType.CONTACT,state=Shogirdchalar.get_phone)
 async def for_start(message: types.Message, state: FSMContext):
+
     son[message.from_user.id] = 0
     await message.answer(f"""
-Assalomu aleykum <b>{message.from_user.first_name}</b>!
-
 Bizning Instagram uchun Nakrutka botiga xuch kelibsiz
 
 Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang!
     """, reply_markup=instagram_paket)
+    await state.finish()
     await Shogirdchalar.Instagram_state.set()
-
-
 
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Likes ❤️")
