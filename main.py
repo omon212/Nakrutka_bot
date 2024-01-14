@@ -22,9 +22,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 son = {
     "user_id": 0
 }
-user_instagram = {
-    "user_id_telegram": "user_name_instagram"
-}
+
 
 
 class Shogirdchalar(StatesGroup):
@@ -114,7 +112,6 @@ async def likes(message: Message, state: FSMContext):
 async def likes(message: Message, state: FSMContext):
     global url
     url = message.text
-    user_instagram[str(message.from_user.id)] = url
 
     if url.startswith("https://www.instagram.com"):
         link = open('images/like.png', 'rb')
