@@ -9,7 +9,6 @@ from instagpy import InstaGPy
 
 
 
-
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Views 👁️")
 async def views(message: Message, state: FSMContext):
     await message.answer("Stories yoki post linkini yuboring : ",reply_markup=orqaqa)
