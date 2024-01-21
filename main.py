@@ -220,7 +220,7 @@ Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.
     await call.message.answer(f'''
 Likelar soni : <b>{son[call.message.chat.id]}</b> ❤️
 Narxi : {son[call.message.chat.id] * 5} so'm 💰
-To'lov karta raqami 💳 : <code>8600092990835856</code>
+To'lov karta raqami 💳 : <code>5614682123000103</code>
 
 To'lovni qilgandan so'ng checkni adminga yuboring.
 Yo'qsa buyurtmangiz amalga oshirilmaydi !
