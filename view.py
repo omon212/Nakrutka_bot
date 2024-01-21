@@ -107,10 +107,10 @@ Username Telegrami : <a href="https://t.me/{call.message.chat.username}">@{call.
     await call.message.answer(f'''
 View soni : <b>{son[call.message.chat.id]}</b> 👁
 Narxi : {son[call.message.chat.id] * 5} so'm 💰
-To'lov karta raqami 💳 : <code>8600092990835856</code>
+To'lov karta raqami 💳 : <code>5614681909981023</code>
 
 To'lovni qilgandan so'ng checkni adminga yuboring.
 Yo'qsa buyurtmangiz amalga oshirilmaydi !
 
-Admin : <a href="https://t.me/check_nakrutka">ADMIN CHECK BOT</a>
+Admin : <a href="https://t.me/ra1mkulov_212">Admin Bot</a>
     ''')
