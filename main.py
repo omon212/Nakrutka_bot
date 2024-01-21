@@ -97,9 +97,9 @@ async def for_start(message: types.Message, state: FSMContext):
     await bot.send_message(6498877955,f"Mijoz telefon raqami : +{message.contact.phone_number}")
     son[message.from_user.id] = 0
     await message.answer(f"""
-Bizning Instagram uchun Nakrutka botiga xuch kelibsiz
+Bizning qiziqarli Instagram Nakrutka botimizga xush kelibsiz🔥
 
-Sizga qaysi xizmat kerak bolsa, quyida xizmatlardan birini tanlang!
+Ozingizga kerak bo'lgan xizmatimizni tanlang ⬇️
     """, reply_markup=instagram_paket)
     await state.finish()
     await Shogirdchalar.Instagram_state.set()
