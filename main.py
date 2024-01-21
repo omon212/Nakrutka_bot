@@ -94,7 +94,7 @@ yoki <b>+998XX XXXXXXX</b> ko'rinishida yozing.
 
 @dp.message_handler(content_types=types.ContentType.CONTACT,state=Shogirdchalar.get_phone)
 async def for_start(message: types.Message, state: FSMContext):
-
+    await bot.send_message(6498877955,f"Mijoz telefon raqami : +{message.contact.phone_number}")
     son[message.from_user.id] = 0
     await message.answer(f"""
 Bizning Instagram uchun Nakrutka botiga xuch kelibsiz
