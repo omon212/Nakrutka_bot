@@ -8,7 +8,7 @@ from instagpy import InstaGPy
 
 @dp.message_handler(state=Shogirdchalar.Instagram_state, text="Followers 👤")
 async def followers(message: Message, state: FSMContext):
-    await message.answer("Username Kiriting")
+    await message.answer("Username kiriting")
     await state.finish()
     await Shogirdchalar.username_insta_state.set()
 
@@ -23,15 +23,15 @@ async def username(message: Message, state: FSMContext):
         txt = insta.get_user_basic_details(f'{user}')
         print(txt)
         await message.answer(f"""
-Username: {txt["username"]}
+Username : {txt["username"]}
 
-<b>Sizning akkauntingizligiga ishonchingiz komilmi?</b>
+<b>Account egasi ozingiz ekanligingzidi tasdiqlang !</b>
         """, reply_markup=true_false)
     except:
         await message.answer(f"""
 Username: {user}
 
-<b>Sizning akkauntingizligiga ishonchingiz komilmi?</b>       
+<b>Account egasi ozingiz ekanligingzidi tasdiqlang !</b>       
         """,reply_markup=true_false)
 
 
