@@ -14,7 +14,7 @@ import sqlite3
 logging.basicConfig(level=logging.INFO)
 from keyboards.inlines.accses import true_false, follow_button, like_button, view_button, comment_button
 
-API_TOKEN = '6008658682:AAFUsfnw2pk4bUwF7JVL0Nz0T_yrJWn_l6M'
+API_TOKEN = '6008658682:AAGuwcC4xoWDBQRsLb9rwAnYWE4CHIAxTfo'
 
 bot = Bot(token=API_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
