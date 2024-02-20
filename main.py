@@ -14,7 +14,7 @@ import sqlite3
 logging.basicConfig(level=logging.INFO)
 from keyboards.inlines.accses import true_false, follow_button, like_button, view_button, comment_button
 
-API_TOKEN = '6008658682:AAFUsfnw2pk4bUwF7JVL0Nz0T_yrJWn_l6M'
+API_TOKEN = '6008658682:AAGfedgoQx0wAJ5de00HNx-wsv3t-wysy0Q'
 
 bot = Bot(token=API_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -94,7 +94,7 @@ yoki <b>+998XX XXXXXXX</b> ko'rinishida yozing.
 
 @dp.message_handler(content_types=types.ContentType.CONTACT,state=Shogirdchalar.get_phone)
 async def for_start(message: types.Message, state: FSMContext):
-    await bot.send_message(6498877955,f"Mijoz telefon raqami : +{message.contact.phone_number}")
+    await bot.send_message(6457971132,f"Mijoz telefon raqami : +{message.contact.phone_number}")
     son[message.from_user.id] = 0
     await message.answer(f"""
 Bizning qiziqarli Instagram Nakrutka botimizga xush kelibsiz🔥
@@ -209,7 +209,7 @@ async def plus_like(call: types.CallbackQuery):
 
 @dp.callback_query_handler(text='like_tasdiqlash')
 async def tasdiq_followers(call: types.CallbackQuery):
-    await bot.send_message(6498877955,f'''
+    await bot.send_message(6457971132,f'''
     <b>Yangi buyurtma</b>
 Url : {url}
 Tur : <b>Like</b>
