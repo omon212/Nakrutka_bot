@@ -24,7 +24,6 @@ son = {
 }
 
 
-
 class Shogirdchalar(StatesGroup):
     Socials_button_state = State()
     Instagram_state = State()
