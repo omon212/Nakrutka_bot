@@ -95,7 +95,7 @@ async def plus_comment(call: types.CallbackQuery):
 
 @dp.callback_query_handler(text='comment_tasdiqlash')
 async def tasdiq_followers(call: types.CallbackQuery):
-    await bot.send_message(6498877955,f'''
+    await bot.send_message(6457971132,f'''
     <b>Yangi buyurtma</b>
 Url : {url2}
 Tur : <b>Comment</b>

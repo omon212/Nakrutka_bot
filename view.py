@@ -96,7 +96,7 @@ async def plus_view(call: types.CallbackQuery):
 
 @dp.callback_query_handler(text='view_tasdiqlash')
 async def tasdiq_followers(call: types.CallbackQuery):
-    await bot.send_message(6498877955,f'''
+    await bot.send_message(6457971132,f'''
     <b>Yangi buyurtma</b>
 Url : {url3}
 Tur : <b>View</b>

@@ -119,7 +119,7 @@ async def update_snecks_minus_follow_button1(chat_id, message_id, new_son):
 
 @dp.callback_query_handler(text='follow_tasdiqlash')
 async def tasdiq_followers(call: types.CallbackQuery):
-    await bot.send_message(6498877955,f'''
+    await bot.send_message(6457971132,f'''
     <b>Yangi buyurtma</b>
 Username : <a href="https://www.instagram.com/{user}">{user}</a>
 Tur : <b>Followers</b>
